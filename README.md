@@ -1,3 +1,72 @@
+# 修改
+对原项目做了修改，使其能直接在HAOS(我用的HAOS, 没测试其他方式的HomeAssistant，感兴趣的可以试试)中获取到传感器信息，提供简单的绘图
+
+1.修改hcho.ino中的WiFi/HTTP请求地址，然后烧录到Arduino板子上
+
+2.将hcho_server放到HomeAssistant的/root/config/custom_components目录下
+
+3.在configuration.yaml中添加：
+
+```yaml
+# 确保记录器正常工作
+recorder:
+  include:
+    entities:
+      - sensor.huan_jing_jian_ce_yi_wen_du
+      - sensor.huan_jing_jian_ce_yi_shi_du
+      - sensor.huan_jing_jian_ce_yi_jia_quan_nong_du
+```
+
+4.重启HomeAssistant
+
+5.在设置-设备与服务-中添加集成'''HCHO监测服务器'''
+
+6.三个实体类就是三个传感器
+
+7.添加组件，提供一个示例：
+
+```yaml
+type: custom:mini-graph-card
+name: 环境监测数据
+hours_to_show: 24
+points_per_hour: 6
+entities:
+  - entity: sensor.huan_jing_jian_ce_yi_jia_quan_nong_du
+    name: 甲醛
+    color: "#6BCB77"
+    y_axis: secondary
+    unit: μg/m³
+    show:
+      legend: true
+      state: true
+  - entity: sensor.huan_jing_jian_ce_yi_wen_du
+    name: 温度
+    color: "#FF6B6B"
+    unit: °C
+    show:
+      legend: true
+      state: true
+  - entity: sensor.huan_jing_jian_ce_yi_shi_du
+    name: 湿度
+    color: "#4D96FF"
+    unit: "%"
+    show:
+      legend: true
+      state: true
+y_axis:
+  - min: 0
+    max: 100
+  - min: 0
+    max: 40
+  - min: 0
+  - max: 100
+    position: right
+```
+<p align="center">
+  <img src="./assets/homeassistant-card.png" style="width: 400px;">
+</p>
+
+# 以下是源文档
 <p align="center">
   <img src="./assets/hcho-bill.png" style="width: 400px;" alt="bill">
 </p>
