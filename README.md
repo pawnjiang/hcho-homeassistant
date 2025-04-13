@@ -62,7 +62,7 @@ y_axis:
   - max: 100
     position: right
 ```
-<p align="center">
+<p align="left">
   <img src="./assets/homeassistant-card.png" style="width: 400px;">
 </p>
 
