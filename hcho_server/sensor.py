@@ -4,7 +4,6 @@ from homeassistant.helpers.entity import Entity
 from .const import DOMAIN, DEVICE_NAME, MANUFACTURER
 
 _LOGGER = logging.getLogger(__name__)
-MIN_UPDATE_INTERVAL = 60  # 至少60秒更新一次
 
 class MultiParameterSensor(Entity):
     """多参数传感器实体"""
